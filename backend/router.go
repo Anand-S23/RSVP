@@ -12,7 +12,9 @@ func NewRouter(c *Controller) *http.ServeMux {
     // Health Check
     router.HandleFunc("GET /ping", Fn(c.Ping))
 
-    // TODO Auth: Login, GetDetails, AddUser
+    router.HandleFunc("GET /status/{id}", Fn(c.GetStatus))
+    router.HandleFunc("POST /rsvp", Fn(c.RSVP))
+    router.HandleFunc("GET /responses", Fn(c.GetAllResponses))
 
     return router
 }

@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -34,4 +35,23 @@ func NewAdmin(email string, password string) Admin {
     }
 }
 
+func NewPerson(name string) Person {
+    return Person{
+        ID: uuid.NewString(),
+        Name: name,
+        Answered: false,
+        Attending: false,
+        DateArriving: time.Now(),
+        DateDeparture: time.Now(),
+        Comment: "",
+    }
+}
+
+func (p *Person) UpdatePerson(attending bool, arrival time.Time, departure time.Time, comment string) {
+    p.Answered = true
+    p.Attending = attending
+    p.DateArriving = arrival
+    p.DateDeparture = departure
+    p.Comment = comment
+}
 
