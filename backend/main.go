@@ -3,28 +3,30 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/Anand-S23/rsvp/backend/app"
 )
 
 func main()  {
-    env := LoadEnv()
+    env := app.LoadEnv()
 
-    db := InitDB(env.DB_URI, env.PRODUCTION)
+    db := app.InitDB(env.DB_URI, env.PRODUCTION)
 
-    store := NewStore(db)
-    controller := NewController(store, env.PRODUCTION)
+    store := app.NewStore(db)
+    controller := app.NewController(store, env.PRODUCTION)
 
     populateDB(store)
     
     log.Println("Server running on port: ", env.PORT);
-    baseRouter := NewRouter(controller)
-    router := NewCorsRouter(baseRouter, env.FE_URI)
+    baseRouter := app.NewRouter(controller)
+    router := app.NewCorsRouter(baseRouter, env.FE_URI)
     http.ListenAndServe(":" + env.PORT, router)
 }
 
-func populateDB(store *Store) {
+func populateDB(store *app.Store) {
     names := []string{"Test", "Test2", "Test3", "Scarlet", "Irene", "Sukhmeet", "Shweta", "Prableen"}
     for _, name := range(names) {
-        err := store.CreatePerson(NewPerson(name))
+        err := store.CreatePerson(app.NewPerson(name))
         log.Fatal(err)
     }
 }

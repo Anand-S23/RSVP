@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: rsvp_db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./rsvp_db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '5445:5432'
+    networks:
+      - shared-network
+
+  backend:
+    container_name: rsvp_backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - shared-network
+
+volumes:
+  rsvp_db_db:
+
+networks:
+  shared-network:
+
