@@ -43,6 +43,17 @@ func (c *Controller) GetStatus(w http.ResponseWriter, r *http.Request) error {
     return WriteJSON(w, http.StatusOK, p.Answered)
 }
 
+func (c *Controller) GetName(w http.ResponseWriter, r *http.Request) error {
+    id := r.PathValue("id")
+    p, err := c.store.ReadPerson(id)
+    if err != nil {
+        log.Println("error getting person data from db")
+        return WriteJSON(w, http.StatusBadRequest, ErrMsg("Internal server error, please try again later"))
+    }
+
+    return WriteJSON(w, http.StatusOK, p.Name)
+}
+
 func (c *Controller) RSVP(w http.ResponseWriter, r *http.Request) error {
     var personData Person
     err := json.NewDecoder(r.Body).Decode(&personData)

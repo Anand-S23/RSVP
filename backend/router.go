@@ -13,6 +13,7 @@ func NewRouter(c *Controller) *http.ServeMux {
     router.HandleFunc("GET /ping", Fn(c.Ping))
 
     router.HandleFunc("GET /status/{id}", Fn(c.GetStatus))
+    router.HandleFunc("GET /name/{id}", Fn(c.GetName))
     router.HandleFunc("POST /rsvp", Fn(c.RSVP))
     router.HandleFunc("GET /responses", Fn(c.GetAllResponses))
 

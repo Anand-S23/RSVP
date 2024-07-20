@@ -1,9 +1,3 @@
-CREATE TABLE admins (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255),
-);
-
 CREATE TABLE people (
     id UUID PRIMARY KEY,
     name VARCHAR(100),

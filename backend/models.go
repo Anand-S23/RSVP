@@ -1,17 +1,10 @@
 package main
 
 import (
-	"log"
 	"time"
 
 	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 )
-
-type Admin struct {
-    Email    string `db:"email"`
-    Password string `db:"password_hash"`
-}
 
 type Person struct {
     ID            string    `db:"id" json:"id"`
@@ -21,18 +14,6 @@ type Person struct {
     DateArriving  time.Time `db:"date_arriving" json:"date_arriving"`
     DateDeparture time.Time `db:"date_departure" json:"date_departure"`
     Comment       string    `db:"comment" json:"comment"`
-}
-
-func NewAdmin(email string, password string) Admin {
-    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	if err != nil {
-        log.Fatal("could not hash password :: ", err)
-	}
-
-    return Admin{
-        Email: email,
-        Password: string(hashedPassword),
-    }
 }
 
 func NewPerson(name string) Person {
