@@ -6,6 +6,6 @@ CREATE TABLE people (
     attending BOOLEAN DEFAULT FALSE,
     date_arriving DATE,
     date_departure DATE,
-    comment VARCHAR(500),
+    comment VARCHAR(500)
 );
 

@@ -25,8 +25,15 @@ func main()  {
 
 func populateDB(store *app.Store) {
     names := []string{"Test", "Test2", "Test3", "Scarlet", "Irene", "Sukhmeet", "Shweta", "Prableen"}
+
+    log.Println("populating db...")
     for _, name := range(names) {
+        log.Println(name)
         err := store.CreatePerson(app.NewPerson(name))
-        log.Fatal(err)
+        if err != nil {
+            log.Fatal(err)
+        }
     }
+
+    log.Println("completed")
 }
