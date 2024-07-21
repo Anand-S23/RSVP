@@ -1,10 +1,7 @@
-'use client'
-
-
 import { BACKEND_URI } from '@/lib/consts';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { useToast } from '../ui/use-toast';
+import { useToast } from './ui/use-toast';
 
 interface FormProps {
     id: string,
@@ -55,7 +52,7 @@ const RSVPForm: React.FC<FormProps> = (props: FormProps) => {
             "attending": isAttending === 'yes',
             "date_arriving": new Date(arrivingDate),
             "date_departure": new Date(leavingDate),
-            "comments": comments
+            "comment": comments
         }
 
         console.log(submit_data);
@@ -80,82 +77,84 @@ const RSVPForm: React.FC<FormProps> = (props: FormProps) => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 shadow-lg w-full max-w-lg">
-                <h2 className="text-2xl font-semibold text-center">Gurpreet & Satwinder</h2>
-                <h3 className="text-lg mb-4 text-center">Invite you, {props.name}, to share their wedding on September 7th 2024</h3>
+        <>
+            <div className="flex justify-center items-center min-h-screen bg-gray-100">
+                <div className="bg-white p-8 shadow-lg w-full max-w-lg">
+                    <h2 className="text-2xl font-semibold text-center">Gurpreet & Satwinder</h2>
+                    <h3 className="text-lg mb-4 text-center">Invite you, {props.name}, to share their wedding on September 7th 2024</h3>
 
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="attending">
-                            Will you be attending?
-                        </label>
-                        <select
-                            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="attending"
-                            value={isAttending}
-                            onChange={handleAttendingChange}
-                        >
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                    
-                    {isAttending === 'yes' && (
-                        <>
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="arriving">
-                                    Date Arriving
-                                </label>
-                                <input
-                                    className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="arriving"
-                                    type="date"
-                                    value={arrivingDate}
-                                    onChange={handleArrivingDateChange}
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="leaving">
-                                    Date Leaving
-                                </label>
-                                <input
-                                    className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="leaving"
-                                    type="date"
-                                    value={leavingDate}
-                                    onChange={handleLeavingDateChange}
-                                />
-                            </div>
-                        </>
-                    )}
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="attending">
+                                Will you be attending?
+                            </label>
+                            <select
+                                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="attending"
+                                value={isAttending}
+                                onChange={handleAttendingChange}
+                            >
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        
+                        {isAttending === 'yes' && (
+                            <>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="arriving">
+                                        Date Arriving
+                                    </label>
+                                    <input
+                                        className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        id="arriving"
+                                        type="date"
+                                        value={arrivingDate}
+                                        onChange={handleArrivingDateChange}
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="leaving">
+                                        Date Leaving
+                                    </label>
+                                    <input
+                                        className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        id="leaving"
+                                        type="date"
+                                        value={leavingDate}
+                                        onChange={handleLeavingDateChange}
+                                    />
+                                </div>
+                            </>
+                        )}
 
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="comments">
-                            Comments
-                        </label>
-                        <textarea
-                            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="comments"
-                            placeholder="Any comments or special requirements"
-                            value={comments}
-                            onChange={handleCommentsChange}
-                        />
-                    </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="comments">
+                                Comments
+                            </label>
+                            <textarea
+                                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="comments"
+                                placeholder="Any comments or special requirements"
+                                value={comments}
+                                onChange={handleCommentsChange}
+                            />
+                        </div>
 
-                    {error && <div className="mb-4 text-red-500">{error}</div>}
+                        {error && <div className="mb-4 text-red-500">{error}</div>}
 
-                    <div className="flex items-center justify-between">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
-                            type="submit"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                </form>
+                        <div className="flex items-center justify-between">
+                            <button
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
+                                type="submit"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
