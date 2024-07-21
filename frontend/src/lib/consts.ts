@@ -1,1 +1,1 @@
-export const BACKEND_URI = "http://localhost:8080";
+export const BACKEND_URI = "https://www.rsvp-backend.anand-singh.dev";

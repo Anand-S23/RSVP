@@ -6,6 +6,8 @@ import RSVPForm from '@/components/RSVPForm';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 
+export const runtime = 'edge';
+
 export default function RSVPPage({ params }: { params: { slug: string } }) {
     const router = useRouter();
     const { toast } = useToast();
